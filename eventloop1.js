@@ -4,9 +4,20 @@ setTimeout(()=>{
     console.log("SET TIMEOUT")
 });
 
-Promise.resolve("Promise").then(console.log);
+
 fs.readFile("./file.txt","utf8",()=>{
-    console.log("File Reeading CB")
+    console.log("File Reeading CB");
+    Promise.resolve("Promise3").then(console.log);
+    process.nextTick(()=>{
+        console.log("Next TICK")
+    });
+    setImmediate(()=>console.log("SetImmediate2"));
+    setTimeout(()=>console.log("SetTimeout2"));
 });
 
-process.nextTick(()=>console.log("Process.nextTick"));
+process.nextTick(()=>{
+    Promise.resolve("Promise2").then(console.log);
+    console.log("Process.nextTick")
+});
+
+Promise.resolve("Promise").then(console.log);
